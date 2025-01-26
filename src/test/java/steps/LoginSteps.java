@@ -24,7 +24,8 @@ public class LoginSteps extends CommonMethods {
 
     @Then("user sees dashboard page")
     public void userSeesDashboardPage() {
-        System.out.println("You see the dashboard");
+        Assert.assertTrue("Login unsuccessful, dashboard is NOT displayed", dashboardPage.dashboardWelcomeMessage.isDisplayed());
+        System.out.println("Login successful, dashboard available");
     }
 
     @When("user does not enter username")
@@ -34,7 +35,8 @@ public class LoginSteps extends CommonMethods {
 
     @Then("empty username error message is displayed")
     public void emptyUsernameErrorMessageIsDisplayed() {
-        Assert.assertTrue("Empty username error message is NOT displayed", loginPage.errorEmptyUsernameField.isDisplayed());
+        String loginErrorText = loginPage.loginErrorMessage.getText();
+        Assert.assertEquals("Username cannot be empty", loginErrorText);
         System.out.println("Error message displayed");
     }
 
@@ -50,7 +52,8 @@ public class LoginSteps extends CommonMethods {
 
     @Then("empty password error message is displayed")
     public void emptyPasswordErrorMessageIsDisplayed() {
-        Assert.assertTrue("Empty password error message is NOT displayed", loginPage.errorEmptyPasswordField.isDisplayed());
+        String loginErrorText = loginPage.loginErrorMessage.getText();
+        Assert.assertEquals("Password is Empty", loginErrorText);
         System.out.println("Error message displayed");
     }
 
@@ -62,16 +65,8 @@ public class LoginSteps extends CommonMethods {
 
     @Then("error message is displayed")
     public void errorMessageIsDisplayed() {
-        /*Assert.assertTrue("Error message is NOT displayed", loginPage.errorInvalidLogin.isDisplayed());
-        System.out.println("Error message displayed");*/
-
-        /*getWait();
-        if (loginPage.errorInvalidLogin.isDisplayed()) {
-            System.out.println("Error message is displayed");
-        } else {
-            System.out.println("Error message is NOT displayed");
-        }*/
-
-        System.out.println("Error");
+        String loginErrorText = loginPage.loginErrorMessage.getText();
+        Assert.assertEquals("Invalid credentials", loginErrorText);
+        System.out.println("Error message displayed");
     }
 }

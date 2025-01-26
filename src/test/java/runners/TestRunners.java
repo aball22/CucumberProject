@@ -13,6 +13,8 @@ import org.junit.runner.RunWith;
 
         dryRun = false,
 
+        plugin = {"pretty", "html:target/cucumber.html", "rerun: target/failed.txt"},
+
         tags = "@accept3"
 )
 public class TestRunners {

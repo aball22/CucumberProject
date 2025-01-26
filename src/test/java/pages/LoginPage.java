@@ -15,14 +15,8 @@ public class LoginPage extends CommonMethods {
     @FindBy(id = "btnLogin")
     public  WebElement loginButton;
 
-    @FindBy(xpath = "//span[text()='Password is Empty']")
-    public WebElement errorEmptyPasswordField;
-
-    @FindBy(xpath = "//span[text()='Username cannot be empty']")
-    public WebElement errorEmptyUsernameField;
-
-    @FindBy(xpath = "//span[text()='Csrf token validation failed']")
-    public WebElement errorInvalidLogin;
+    @FindBy(id = "spanMessage")
+    public WebElement loginErrorMessage;
 
     public LoginPage() {
         PageFactory.initElements(driver, this);

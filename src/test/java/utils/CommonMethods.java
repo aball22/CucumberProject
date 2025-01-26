@@ -1,5 +1,8 @@
 package utils;
 
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -8,7 +11,11 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.time.Duration;
+import java.util.Date;
 
 public class CommonMethods extends PageInitializer {
     public static WebDriver driver;
@@ -77,6 +84,26 @@ public class CommonMethods extends PageInitializer {
         Select sel = new Select(element);
         sel.selectByVisibleText(text);
     }
-//takescreenshot
-//timestamp
+    public byte [] takeScreenshot(String fileName) {
+        TakesScreenshot ts = (TakesScreenshot) driver;
+        byte [] picByte = ts.getScreenshotAs(OutputType.BYTES);
+        // It is not going to take another screenshot, instead it will consider picBytes
+        // i.e. array of byte as a source file for transfer
+        File sourceFile = ts.getScreenshotAs(OutputType.FILE);
+
+        try {
+            FileUtils.copyFile(sourceFile,
+                    new File(Constants.SCREENSHOT_FILEPATH +
+                            fileName + " " + getTimeStamp ("MM-dd-yyyy-HH-mm-ss")+ ".png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return picByte;
+    }
+    //timestamp
+    public String getTimeStamp(String pattern) {
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+        return sdf.format(date);
+    }
 }

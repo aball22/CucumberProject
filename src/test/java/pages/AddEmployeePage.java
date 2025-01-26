@@ -7,11 +7,7 @@ import utils.CommonMethods;
 
 public class AddEmployeePage extends CommonMethods {
 
-    @FindBy(id = "menu_pim_viewPimModule")
-    public WebElement pimOption;
 
-    @FindBy(id = "menu_pim_addEmployee")
-    public WebElement addEmployeeOption;
 
     @FindBy(id = "btnSave")
     public WebElement saveButton;
@@ -19,17 +15,26 @@ public class AddEmployeePage extends CommonMethods {
     @FindBy(id = "firstName")
     public WebElement firstNameField;
 
+    @FindBy(xpath = "//input[@id='firstName']/following-sibling::span[@class='validation-error']")
+    public WebElement firstNameErrorMessage;
+
+    @FindBy(xpath = "//input[@id='firstName']/following-sibling::span[@class='validation-error']")
+    public WebElement lastNameErrorMessage;
+
     @FindBy(id = "middleName")
     public WebElement middleNameField;
 
     @FindBy(id = "lastName")
     public WebElement lastNameField;
 
-    @FindBy(id = "personal_txtEmpID")
+    @FindBy(id = "personal_txtEmployeeId")
     public WebElement employeeId;
 
     @FindBy(id = "employeeId")
-    public WebElement newEmployeeId;
+    public WebElement employeeIdField;
+
+    @FindBy(id = "pdMainContainer")
+    public WebElement employeeDetailsPage;
 
     public AddEmployeePage() {
         PageFactory.initElements(driver, this);

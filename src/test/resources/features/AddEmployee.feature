@@ -8,23 +8,22 @@ Feature: Add employee to HRMs
     And user clicks on Add Employee option
 
   @accept1
-  Scenario Outline: Admin user adds employee by first name and last name
-    When user enters "<firstName>" and "<lastName>"
+  Scenario Outline: Admin user adds employee by first name and middle name and last name
+    When user enters "<firstName>" and "<middleName>" and "<lastName>"
     And user clicks save button
-    And a unique id is given
     Then employee added successfully
     Examples:
-      | firstName | lastName |
-      | Jane      | Doe      |
-      | John      | Doe      |
-      | Jim       | Doe      |
+      | firstName | middleName | lastName |
+      | Jane      | Anne       | Doe      |
+      | John      | Jacob      | Doe      |
+      | Jill      |Jo          |Doe       |
 
-  @accept2
+  @accept2 @Excel
   Scenario: Admin user adds employee by first name and last name and id
     When admin user adds employees and id numbers
 
-  @accept3
+  @accept3 @Empty
   Scenario: Incomplete add employee fields
     When user enters invalid first name and last name
     And user clicks save button
-    Then error message is displayed
+    Then empty field error message is displayed
